@@ -1,3 +1,5 @@
+import "server-only";
+
 /**
  * 四柱推命オーケストレーター
  *

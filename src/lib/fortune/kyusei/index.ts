@@ -1,3 +1,5 @@
+import "server-only";
+
 /**
  * 九星気学オーケストレーター
  *

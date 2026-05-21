@@ -236,6 +236,11 @@ export interface ShiWeiResult {
   body: string;
   /** 五行局 */
   fiveElementsClass: string;
+  /**
+   * 概算フラグ。出生時刻が不明な場合、時辰依存の命宮等が確定できないため
+   * "time-unknown" がセットされる。AIプロンプトはこの場合「概算」と明示する。
+   */
+  approximation?: "time-unknown";
   /** 大限（現在の10年運） */
   currentDecade: {
     palace: PalaceName;

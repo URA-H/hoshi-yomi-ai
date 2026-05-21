@@ -1,7 +1,7 @@
 /**
  * 手動スモークテスト。
  *
- *   npx tsx src/lib/fortune/shichusuimei/__smoketest__.ts
+ *   npx tsx --conditions=react-server src/lib/fortune/shichusuimei/__smoketest__.ts
  *
  * 命式の数値の妥当性は将来的に外部の四柱推命サービスとの比較で検証する。
  * ここでは「実行が完走し、型と前提を満たす」ことだけを確認する。

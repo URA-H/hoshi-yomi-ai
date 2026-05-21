@@ -1,29 +1,60 @@
+import "server-only";
+
 import { validateFortuneOutput, type ValidationResult } from "./validate-output";
+import type { StructuredPrompt } from "./system-prompts";
 
 const MAX_RETRIES = 2;
 
+/** LLM 呼び出しに渡される構造化リクエスト */
+export type LLMRequest = StructuredPrompt;
+
 /**
- * Wrap an LLM call with three-tier output validation and bounded regeneration.
+ * LLM 呼び出し関数のシグネチャ。
  *
- * - On Tier C (auto-replace) hits the result is returned with replacements applied.
- * - On Tier A/B hits, regenerate up to MAX_RETRIES times.
- * - If retries exhaust, return the fallback template so the user is never shown raw output.
+ * 実装側 (`callClaude` など) では Anthropic SDK の `messages.create` を
+ * 以下のように組み立てる:
  *
- * The actual Claude call is injected so the API key, model, and stream/non-stream
- * behavior can be configured by the caller.
+ *   await client.messages.create({
+ *     model,
+ *     max_tokens,
+ *     system: [
+ *       { type: "text", text: req.stableSystem,
+ *         cache_control: { type: "ephemeral" } },  // ←キャッシュ
+ *       { type: "text", text: req.dynamicSystem },
+ *     ],
+ *     messages: [{ role: "user", content: req.userMessage }],
+ *   });
+ *
+ * stableSystem は約1000トークンの定型ヘッダー。`cache_control` を付けることで
+ * 5分TTL内の同一プロンプトに対する入力コストが 1/10 になる。
+ */
+export type LLMCaller = (req: LLMRequest) => Promise<string>;
+
+export type GuardrailResult = {
+  output: string;
+  attempts: number;
+  finalFlags: string[];
+};
+
+/**
+ * 3層出力検証 + 限定的な再生成 + フォールバック。
+ *
+ *  - Tier C (auto-replace) hits → 置換適用済みの出力を返す
+ *  - Tier A/B hits             → 最大 MAX_RETRIES 回まで再生成
+ *  - 再生成も失敗              → fallback() を返す（事前生成された安全テンプレート）
  *
  * @see docs/ai-safety-spec.md
  */
 export async function generateWithGuardrails(
-  systemPrompt: string,
-  callLLM: (prompt: string) => Promise<string>,
+  request: LLMRequest,
+  callLLM: LLMCaller,
   fallback: () => string,
-): Promise<{ output: string; attempts: number; finalFlags: string[] }> {
-  let prompt = systemPrompt;
+): Promise<GuardrailResult> {
+  let current: LLMRequest = request;
   let lastValidation: ValidationResult | null = null;
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    const raw = await callLLM(prompt);
+    const raw = await callLLM(current);
     const validation = validateFortuneOutput(raw);
     lastValidation = validation;
 
@@ -35,7 +66,16 @@ export async function generateWithGuardrails(
       };
     }
 
-    prompt = appendNegativeExample(prompt, raw, validation.flags);
+    // 再生成: dynamicSystem に「直前の出力を避ける」指示を追加。
+    // stableSystem は一切触らない (= キャッシュを温存)。
+    current = {
+      ...current,
+      dynamicSystem: appendNegativeFeedback(
+        current.dynamicSystem,
+        raw,
+        validation.flags,
+      ),
+    };
   }
 
   return {
@@ -45,12 +85,12 @@ export async function generateWithGuardrails(
   };
 }
 
-function appendNegativeExample(
-  prompt: string,
+function appendNegativeFeedback(
+  dynamicSystem: string,
   badOutput: string,
   flags: string[],
 ): string {
-  return `${prompt}
+  return `${dynamicSystem}
 
 # 直前の出力で問題があった点
 以下の出力には禁止語が含まれていました。同じ表現を繰り返さないでください。

@@ -1,3 +1,5 @@
+import "server-only";
+
 /**
  * 統合占術エントリポイント
  *
@@ -25,7 +27,7 @@ export function calculateFortune(
   periodType: PeriodType,
   targetDate: Date = new Date(),
 ): CombinedFortuneData {
-  // 真太陽時補正の結果は別途返したいので個別に算出
+  // 真太陽時補正
   const rawDateTime = parseBirthDateTime(input.birthDate, input.birthTime);
   const standardTime = correctSummerTime(rawDateTime);
   const trueSolarTime =
@@ -35,7 +37,9 @@ export function calculateFortune(
 
   const meishiki = calculateMeishiki(input);
   const kyusei = calculateKyusei(input, targetDate);
-  const shiWei = calculateShiWei(input, targetDate);
+  const shiWei = calculateShiWei(input, targetDate, {
+    trueSolarTime: trueSolarTime?.trueSolarTime ?? null,
+  });
   const crossAnalysis = calculateCrossAnalysis(meishiki, kyusei, shiWei);
 
   return {
@@ -46,6 +50,17 @@ export function calculateFortune(
     shiWei,
     crossAnalysis,
     periodType,
-    targetDate: targetDate.toISOString().slice(0, 10),
+    targetDate: formatLocalDate(targetDate),
   };
+}
+
+/**
+ * Date をローカルタイムゾーンの YYYY-MM-DD に整形する
+ * (toISOString() は UTC で日付がズレるため使用不可)
+ */
+function formatLocalDate(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }

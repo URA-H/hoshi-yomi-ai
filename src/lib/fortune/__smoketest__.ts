@@ -1,6 +1,10 @@
 /**
  * 統合スモークテスト
- *   npx tsx src/lib/fortune/__smoketest__.ts
+ *
+ * 各オーケストレーターが `import "server-only"` を含むため、
+ * Node からの直接実行時は react-server 条件を有効にする:
+ *
+ *   npx tsx --conditions=react-server src/lib/fortune/__smoketest__.ts
  */
 
 import { calculateFortune } from "./index";

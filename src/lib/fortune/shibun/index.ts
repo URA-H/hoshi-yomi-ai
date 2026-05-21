@@ -1,12 +1,15 @@
+import "server-only";
+
 /**
  * 紫微斗数オーケストレーター
  *
  * iztro の Astrolabe をラップし、本プロダクトの ShiWeiResult 型に詰め替える。
  *
  * 注意:
- *  - 出生時刻が不明な場合、時辰に依存する命宮・各宮の位置が不正確になるため、
- *    呼び出し側は「簡易版」と明示するか、デフォルト時辰（午時 = 11:00-12:59）を
- *    使ったうえで結果を「概算」として扱うべき。
+ *  - 真太陽時補正後の Date を `options.trueSolarTime` で受け取り、iztro に
+ *    渡す solarDate と hour 両方をそこから組み立てる（経度差で時辰境界を
+ *    またぐ場合に命宮自体が変わるため、必須）。
+ *  - 出生時刻が不明な場合は `approximation: "time-unknown"` フラグを立てる。
  *  - 中国語特有の宮名・星名は normalize.ts で日本式に統一する。
  */
 
@@ -14,23 +17,40 @@ import { astro } from "iztro";
 import type { BirthInput, ShiWeiResult, Palace, PalaceName } from "../types";
 import { normalizePalaceName, timeToIndex } from "./normalize";
 
-/**
- * 紫微斗数の鑑定を行う
- *
- * @param input       出生情報
- * @param targetDate  運限を評価する日付（デフォルト: 現在）
- */
+// iztro 既定値 (`yearDivide: 'normal'` = 旧暦正月境界) は日本式の立春境界と
+// 食い違うため、モジュール読み込み時に一度だけ立春基準に切り替える。
+// 九星気学側も立春補正をしているので、これにより三術で年の定義が一致する。
+astro.config({
+  yearDivide: "exact",       // 立春で年を区切る
+  horoscopeDivide: "exact",  // 運限境界も立春基準
+});
+
+type ShiWeiOptions = {
+  /** 真太陽時補正後の出生日時。null の場合は input から組み立てる */
+  trueSolarTime?: Date | null;
+};
+
 export function calculateShiWei(
   input: BirthInput,
   targetDate: Date = new Date(),
+  options: ShiWeiOptions = {},
 ): ShiWeiResult {
-  // 出生時刻不明の場合は午時 (timeIndex=6) をデフォルトとする
-  const hour = input.birthTime ? Number(input.birthTime.slice(0, 2)) : 12;
+  // 出生時刻不明の判定
+  const timeUnknown = input.birthTime === null;
+
+  // iztro に渡す solarDate と timeIndex を真太陽時から組み立てる
+  const sourceDate =
+    options.trueSolarTime ??
+    new Date(
+      ...parseBirthLocalParts(input.birthDate, input.birthTime ?? "12:00"),
+    );
+
+  const solarDate = formatSolarDate(sourceDate);
+  const hour = timeUnknown ? 12 : sourceDate.getHours();
   const timeIndex = timeToIndex(hour);
 
-  // iztro はYYYY-MM-DD 形式
   const astrolabe = astro.bySolar(
-    input.birthDate,
+    solarDate,
     timeIndex,
     input.gender === "male" ? "男" : "女",
     true,
@@ -74,11 +94,33 @@ export function calculateShiWei(
     soul: astrolabe.soul,
     body: astrolabe.body,
     fiveElementsClass: astrolabe.fiveElementsClass,
+    approximation: timeUnknown ? "time-unknown" : undefined,
     currentDecade: extractDecade(horoscope, astrolabe.palaces),
     currentYear: extractYear(horoscope, astrolabe.palaces),
     currentMonth: extractMonth(horoscope, astrolabe.palaces),
     currentDay: extractDay(horoscope, astrolabe.palaces),
   };
+}
+
+// ============================================================
+// 日付ヘルパー
+// ============================================================
+
+function parseBirthLocalParts(
+  birthDate: string,
+  birthTime: string,
+): [number, number, number, number, number] {
+  const [y, m, d] = birthDate.split("-").map(Number);
+  const [hh, mm] = birthTime.split(":").map(Number);
+  return [y, m - 1, d, hh, mm];
+}
+
+/** iztro は YYYY-M-D を許容するが、ゼロ詰め YYYY-MM-DD も問題なし */
+function formatSolarDate(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
 // ============================================================
@@ -101,7 +143,6 @@ function extractDecade(
   if (!horoscope.decadal) return null;
   const p = findPalaceByBranch(palaces, horoscope.decadal.earthlyBranch);
   if (!p) return null;
-  // 大限の年齢範囲は宮の Decadal プロパティに格納されている
   const range = p.decadal?.range ?? [0, 0];
   return {
     palace: normalizePalaceName(p.name),

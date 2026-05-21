@@ -1,6 +1,6 @@
 /**
  * 九星気学スモークテスト
- *   npx tsx src/lib/fortune/kyusei/__smoketest__.ts
+ *   npx tsx --conditions=react-server src/lib/fortune/kyusei/__smoketest__.ts
  *
  * 本命星は公知の表と照合可能。月命星・日命星はサンプルで実行確認のみ。
  */

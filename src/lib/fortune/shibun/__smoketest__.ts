@@ -1,3 +1,5 @@
+// 実行: npx tsx --conditions=react-server src/lib/fortune/shibun/__smoketest__.ts
+
 import { calculateShiWei } from "./index";
 
 const cases = [
