@@ -1,26 +1,206 @@
 @import "tailwindcss";
 
+/* ===========================================
+ * Fortune AI Design System — 東洋の書斎
+ * Tokens validated for WCAG AA/AAA contrast.
+ * Detailed spec: docs/design-system.md
+ * =========================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base palette (日本伝統色) */
+  --jp-shikkoku: 13 13 20;       /* #0D0D14 漆黒 */
+  --jp-sumizome: 26 26 40;       /* #1A1A28 墨染 */
+  --jp-aiiro: 34 58 94;          /* #223A5E 藍色  — borders/decor only (< 2:1) */
+  --jp-aikasumi: 123 160 200;    /* #7BA0C8 藍霞  — text-safe variant (~6.7:1) */
+  --jp-kinpaku: 201 168 76;      /* #C9A84C 金箔  — AAA on shikkoku */
+  --jp-shuiro: 197 61 67;        /* #C53D43 朱色  — large text only (3.8:1) */
+  --jp-shumei: 224 122 127;      /* #E07A7F 朱明  — text-safe variant */
+  --jp-shikon: 91 50 112;        /* #5B3270 紫紺  — decor only */
+  --jp-usumurasaki: 167 139 191; /* #A78BBF 薄紫  — text-safe variant */
+  --jp-shironeri: 243 240 230;   /* #F3F0E6 白練  — AAA on shikkoku */
+
+  /* Semantic tokens (use these in components) */
+  --color-bg-base: rgb(var(--jp-shikkoku));
+  --color-bg-surface: rgb(var(--jp-sumizome));
+  --color-bg-elevated: rgb(var(--jp-sumizome) / 0.7);
+  --color-border-subtle: rgb(var(--jp-aiiro));
+  --color-border-strong: rgb(var(--jp-kinpaku) / 0.4);
+
+  --color-text-primary: rgb(var(--jp-shironeri));
+  --color-text-secondary: rgb(var(--jp-shironeri) / 0.7);
+  --color-text-muted: rgb(var(--jp-shironeri) / 0.5);
+
+  --color-accent-emphasis: rgb(var(--jp-kinpaku));
+  --color-accent-primary: rgb(var(--jp-aikasumi));
+  --color-accent-shibun: rgb(var(--jp-usumurasaki));
+  --color-accent-cta: rgb(var(--jp-shuiro));
+  --color-accent-cta-text: rgb(var(--jp-shironeri));
+  --color-accent-warning: rgb(var(--jp-shumei));
+
+  --color-ring: rgb(var(--jp-kinpaku) / 0.5);
+  --color-overlay: rgb(var(--jp-shikkoku) / 0.7);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Background */
+  --color-bg-base: var(--color-bg-base);
+  --color-bg-surface: var(--color-bg-surface);
+  --color-bg-elevated: var(--color-bg-elevated);
+
+  /* Border */
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-strong: var(--color-border-strong);
+
+  /* Text */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+
+  /* Accents */
+  --color-accent-emphasis: var(--color-accent-emphasis);
+  --color-accent-primary: var(--color-accent-primary);
+  --color-accent-shibun: var(--color-accent-shibun);
+  --color-accent-cta: var(--color-accent-cta);
+  --color-accent-cta-text: var(--color-accent-cta-text);
+  --color-accent-warning: var(--color-accent-warning);
+
+  /* Raw 日本伝統色 (for special cases — prefer semantic tokens) */
+  --color-shikkoku: rgb(var(--jp-shikkoku));
+  --color-sumizome: rgb(var(--jp-sumizome));
+  --color-aiiro: rgb(var(--jp-aiiro));
+  --color-aikasumi: rgb(var(--jp-aikasumi));
+  --color-kinpaku: rgb(var(--jp-kinpaku));
+  --color-shuiro: rgb(var(--jp-shuiro));
+  --color-shumei: rgb(var(--jp-shumei));
+  --color-shikon: rgb(var(--jp-shikon));
+  --color-usumurasaki: rgb(var(--jp-usumurasaki));
+  --color-shironeri: rgb(var(--jp-shironeri));
+
+  /* Fonts */
+  --font-mincho: var(--font-mincho), "Zen Old Mincho", serif;
+  --font-gothic: var(--font-gothic), "Zen Kaku Gothic New", sans-serif;
+  --font-decorative: var(--font-decorative), "Shippori Mincho B1", serif;
+
+  /* Typography scale (東洋の書斎: wider line-height, generous breathing) */
+  --text-display: clamp(3rem, 5vw, 4rem);
+  --text-display--line-height: 1.3;
+  --text-display--font-weight: 600;
+
+  --text-h1: 2rem;
+  --text-h1--line-height: 1.5;
+  --text-h1--font-weight: 600;
+
+  --text-h2: 1.5rem;
+  --text-h2--line-height: 1.55;
+  --text-h2--font-weight: 500;
+
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.6;
+  --text-h3--font-weight: 500;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.85;
+  --text-body-lg--font-weight: 400;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.8;
+  --text-body--font-weight: 400;
+
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.7;
+  --text-caption--font-weight: 400;
+
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.6;
+  --text-micro--font-weight: 500;
+
+  /* Letter spacing (日本語は広めが上品) */
+  --tracking-jp-tight: 0.02em;
+  --tracking-jp-normal: 0.04em;
+  --tracking-jp-wide: 0.08em;
+  --tracking-jp-decorative: 0.15em;
+
+  /* Spacing — 「間」(ma) system */
+  --spacing-ma-xs: 0.5rem;
+  --spacing-ma-sm: 1rem;
+  --spacing-ma-md: 1.5rem;
+  --spacing-ma-lg: 2.5rem;
+  --spacing-ma-xl: 4rem;
+  --spacing-ma-2xl: 6rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ===========================================
+ * Decoration utilities — 装飾レシピ
+ * =========================================== */
+
+/* 夜空に和紙 — main background */
+.bg-yozora-washi {
+  background-color: rgb(var(--jp-shikkoku));
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.94 0 0 0 0 0.9 0 0 0 0.015 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse at 50% 30%, rgb(var(--jp-aiiro) / 0.15) 0%, transparent 60%);
+  background-size: 200px 200px, 100% 100%;
+}
+
+/* 金箔散らし */
+.deco-kinpaku-chiri::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgb(var(--jp-kinpaku) / 0.3) 0%, transparent 0.5%),
+    radial-gradient(circle at 78% 28%, rgb(var(--jp-kinpaku) / 0.25) 0%, transparent 0.4%),
+    radial-gradient(circle at 35% 65%, rgb(var(--jp-kinpaku) / 0.2) 0%, transparent 0.6%),
+    radial-gradient(circle at 88% 82%, rgb(var(--jp-kinpaku) / 0.28) 0%, transparent 0.3%);
+}
+
+/* 墨の滲み divider */
+.divider-sumi {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(var(--jp-kinpaku) / 0.3) 30%,
+    rgb(var(--jp-kinpaku) / 0.5) 50%,
+    rgb(var(--jp-kinpaku) / 0.3) 70%,
+    transparent 100%
+  );
+  position: relative;
+}
+.divider-sumi::after {
+  content: "";
+  position: absolute;
+  inset: -2px 30% -2px 30%;
+  background: rgb(var(--jp-kinpaku) / 0.05);
+  filter: blur(3px);
+}
+
+/* 朱印 stamp */
+.stamp-shuin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--jp-shuiro));
+  color: rgb(var(--jp-shironeri));
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 2px rgb(var(--jp-shuiro)),
+    inset 0 0 0 3px rgb(var(--jp-shironeri) / 0.15);
+  filter: contrast(0.95);
+}
+
+/* ===========================================
+ * Accessibility — reduced motion
+ * =========================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
