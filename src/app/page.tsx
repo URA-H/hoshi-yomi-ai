@@ -31,9 +31,11 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              <Button variant="primary" size="lg">
-                無料で始める
-              </Button>
+              <Link href="/birth">
+                <Button variant="primary" size="lg">
+                  無料で始める
+                </Button>
+              </Link>
               <Button variant="secondary" size="lg">
                 占術の解説を読む
               </Button>
@@ -193,9 +195,11 @@ export default function Home() {
             登録は1分で完了します。いつでも1画面で解約できます。
           </p>
           <div className="mt-(--spacing-ma-lg) flex justify-center gap-3">
-            <Button variant="primary" size="lg">
-              無料で始める
-            </Button>
+            <Link href="/birth">
+              <Button variant="primary" size="lg">
+                無料で始める
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
