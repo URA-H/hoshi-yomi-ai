@@ -11,11 +11,7 @@
 
 import { Solar } from "lunar-typescript";
 import type { DaYun, TianGan } from "../types";
-import {
-  normalizeTianGan,
-  normalizeDiZhi,
-  normalizeShiShen,
-} from "./normalize";
+import { normalizeTianGan, normalizeDiZhi } from "./normalize";
 import { getTwelveStage } from "./twelve-stages";
 
 /**
@@ -127,6 +123,7 @@ function deriveShiShenFromGan(
   if (PRODUCED_BY[me] === them) return sameYinYang ? "偏印" : "印綬";
   if (CONTROLS[me] === them) return sameYinYang ? "偏財" : "正財";
   if (CONTROLS[them] === me) return sameYinYang ? "偏官" : "正官";
-  // 上の5パターンで全て網羅される
-  return normalizeShiShen("比肩");
+  // 五行の関係は常に上の5パターンのいずれかに該当する。
+  // ここに来た場合は GAN_WU_XING / 相生相剋テーブルにバグがある。
+  throw new Error(`unreachable: 十神 derivation failed for ${dayMaster} vs ${other}`);
 }

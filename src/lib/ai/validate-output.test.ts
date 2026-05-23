@@ -23,12 +23,27 @@ describe("validateFortuneOutput", () => {
   });
 
   describe("Tier B: 強く避ける → regenerate", () => {
-    it.each(["今月は大凶の月です", "奇跡が起こります", "宿命を受け入れて"])(
+    it.each([
+      "今月は大凶の月です",
+      "奇跡が起こります",
+      "宿命を受け入れて",
+      "100パーセントの自信",
+      "絶対的に信じてください",
+      "運命的な出会いがあります",
+    ])("'%s' should trigger regenerate", (input) => {
+      const r = validateFortuneOutput(input);
+      expect(r.status).toBe("regenerate");
+      expect(r.flags[0]).toMatch(/^DISCOURAGED:/);
+    });
+  });
+
+  describe("Tier A 拡張: 漢数字/英字バリアント", () => {
+    it.each(["百パーセント当たる", "百％の精度"])(
       "'%s' should trigger regenerate",
       (input) => {
         const r = validateFortuneOutput(input);
         expect(r.status).toBe("regenerate");
-        expect(r.flags[0]).toMatch(/^DISCOURAGED:/);
+        expect(r.flags[0]).toMatch(/^FORBIDDEN:/);
       },
     );
   });
@@ -50,6 +65,13 @@ describe("validateFortuneOutput", () => {
       const r = validateFortuneOutput("AIによる未来予知");
       expect(r.status).toBe("auto-replaced");
       expect(r.output).toContain("示唆");
+    });
+
+    it("同一語の複数出現は1つの flag に出現回数を埋め込む", () => {
+      const r = validateFortuneOutput("信頼度: 高 / 信頼度: 中 / 信頼度: 低");
+      expect(r.status).toBe("auto-replaced");
+      expect(r.output).toBe("合致度: 高 / 合致度: 中 / 合致度: 低");
+      expect(r.flags).toEqual(["REPLACED(3): 信頼度 → 合致度"]);
     });
   });
 

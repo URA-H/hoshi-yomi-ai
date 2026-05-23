@@ -60,13 +60,7 @@ export function calculateCrossAnalysis(
     }
 
     const scores = present.map((x) => x.score);
-    const sorted = [...scores].sort((a, b) => a - b);
-    const median =
-      sorted.length === 1
-        ? sorted[0]
-        : sorted.length === 2
-          ? (sorted[0] + sorted[1]) / 2
-          : sorted[1];
+    const median = computeMedian(scores);
 
     const within = present.filter((x) => Math.abs(x.score - median) <= 1).length;
     const concordance = within / present.length;
@@ -143,6 +137,19 @@ function buildSummary(
         ? "二術が同方向を示唆"
         : "見方が分かれる";
   return `${domainLabel(domain)}: ${concordancePhrase} (スコア ${scores.join("/")})`;
+}
+
+/**
+ * 任意要素数に対応する中央値計算。
+ * 奇数なら中央の値、偶数なら中央 2 値の平均。
+ */
+function computeMedian(values: readonly number[]): number {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 === 1
+    ? sorted[mid]
+    : (sorted[mid - 1] + sorted[mid]) / 2;
 }
 
 function domainLabel(d: AnalysisDomain): string {

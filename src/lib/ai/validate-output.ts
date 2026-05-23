@@ -40,9 +40,10 @@ export function validateFortuneOutput(raw: string): ValidationResult {
 
   let output = raw;
   for (const [bad, good] of TERM_REPLACEMENTS) {
-    if (output.includes(bad)) {
+    const count = countOccurrences(output, bad);
+    if (count > 0) {
       output = output.replaceAll(bad, good);
-      flags.push(`REPLACED: ${bad} → ${good}`);
+      flags.push(`REPLACED(${count}): ${bad} → ${good}`);
     }
   }
 
@@ -51,4 +52,19 @@ export function validateFortuneOutput(raw: string): ValidationResult {
     output,
     flags,
   };
+}
+
+/**
+ * `haystack` 内に `needle` が現れる回数を数える。
+ * 空文字列の `needle` は 0 を返す (無限ループ防止)。
+ */
+function countOccurrences(haystack: string, needle: string): number {
+  if (needle.length === 0) return 0;
+  let count = 0;
+  let pos = 0;
+  while ((pos = haystack.indexOf(needle, pos)) !== -1) {
+    count++;
+    pos += needle.length;
+  }
+  return count;
 }
