@@ -193,6 +193,28 @@
 }
 
 /* ===========================================
+ * Reveal animations — 静の美学に寄せた fade
+ * =========================================== */
+@keyframes reading-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Suspense 境界の解決直後に適用するクラス。
+   占術結果の AI 解釈が「墨が滲むように」現れる演出。 */
+.reading-fade-in {
+  animation: reading-fade-in 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* ===========================================
  * Accessibility — reduced motion
  * =========================================== */
 @media (prefers-reduced-motion: reduce) {

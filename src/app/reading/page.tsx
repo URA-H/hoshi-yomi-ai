@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -8,10 +9,11 @@ import { MeishikiSummary } from "@/components/reading/meishiki-summary";
 import { KyuseiSummary } from "@/components/reading/kyusei-summary";
 import { ShiWeiSummary } from "@/components/reading/shiwei-summary";
 import { CrossSummary } from "@/components/reading/cross-summary";
+import { AICommentary } from "@/components/reading/ai-commentary";
+import { AICommentaryLoading } from "@/components/reading/ai-commentary-loading";
 import { calculateFortune } from "@/lib/fortune";
 import { loadBirthSession } from "@/lib/forms/birth-session";
 import { toBirthInput } from "@/lib/forms/birth-schema";
-import { generateFortuneReading } from "@/lib/ai/generate-fortune-reading";
 
 export const metadata: Metadata = {
   title: "鑑定結果",
@@ -29,10 +31,6 @@ export default async function ReadingPage() {
 
   const input = toBirthInput(session);
   const fortune = calculateFortune(input, "monthly", new Date());
-
-  // AI 解釈は構造化データと並行で表示できる位置に。本番では Suspense でストリーミング化検討。
-  const reading = await generateFortuneReading(fortune, "monthly");
-
   const birthSummary = formatBirthSummary(session);
 
   return (
@@ -57,7 +55,7 @@ export default async function ReadingPage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-6 py-(--spacing-ma-xl) space-y-(--spacing-ma-lg)">
-        {/* タイトル + メタ情報 */}
+        {/* タイトル + メタ情報 — 即時表示 */}
         <section>
           <p className="font-mincho text-(length:--text-caption) tracking-(--tracking-jp-decorative) text-(--color-text-muted) uppercase">
             {fortune.targetDate} の鑑定
@@ -72,24 +70,12 @@ export default async function ReadingPage() {
 
         <Divider />
 
-        {/* AI 解釈 */}
-        <section className="rounded-sm border border-(--color-accent-emphasis)/30 bg-(--color-bg-surface) p-6 md:p-8">
-          <div className="flex items-center justify-between gap-3 mb-(--spacing-ma-sm)">
-            <p className="font-mincho text-(length:--text-caption) tracking-(--tracking-jp-decorative) text-(--color-accent-emphasis) uppercase">
-              AI 統合解釈
-            </p>
-            {reading.source === "mock" && (
-              <span className="font-gothic text-(length:--text-micro) text-(--color-text-muted) border border-(--color-border-subtle) rounded-sm px-2 py-0.5">
-                デモ表示
-              </span>
-            )}
-          </div>
-          <div className="font-gothic text-(length:--text-body-lg) text-(--color-text-primary) leading-[1.85] tracking-(--tracking-jp-normal) whitespace-pre-wrap">
-            {reading.text}
-          </div>
-        </section>
+        {/* AI 解釈 — Suspense 境界で分離。生成中はスケルトン、完了で fade-in */}
+        <Suspense fallback={<AICommentaryLoading />}>
+          <AICommentary fortune={fortune} period="monthly" />
+        </Suspense>
 
-        {/* 三術 + クロス分析 */}
+        {/* 三術 + クロス分析 — 即時表示 (計算は数ミリ秒) */}
         <CrossSummary cross={fortune.crossAnalysis} />
         <MeishikiSummary m={fortune.meishiki} />
         <KyuseiSummary k={fortune.kyusei} />
