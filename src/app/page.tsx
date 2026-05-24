@@ -6,17 +6,25 @@ import { FortuneAIMark } from "@/components/fortune-ai-mark";
 import { ResultCard } from "@/components/result-card";
 import { ConstellationEmblem } from "@/components/constellation-emblem";
 import { OrnamentFlourish } from "@/components/ornament-flourish";
+import { ShootingStars } from "@/components/shooting-stars";
 
 export default function Home() {
   return (
     <div className="bg-yozora-washi text-(--color-text-primary)">
       {/* Hero */}
       <section className="relative bg-nebula-hero overflow-hidden">
-        {/* 星屑のオーバーレイ */}
+        {/* 多色 nebula (紫/桃/橙/水色のガスが渦巻く異世界の星雲) */}
+        <div aria-hidden className="nebula-fantasy" />
+
+        {/* 星屑のオーバーレイ (密度高め) */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-starfield opacity-50 pointer-events-none"
+          className="absolute inset-0 bg-starfield opacity-75 pointer-events-none"
         />
+
+        {/* 流れ星 */}
+        <ShootingStars />
+
         {/* 背景の巨大な魔法陣 backdrop (発光する円環、テキストの後ろに薄く敷く) */}
         <div
           aria-hidden
@@ -26,6 +34,9 @@ export default function Home() {
               "radial-gradient(circle, rgb(91 50 112 / 0.18) 0%, transparent 55%)",
           }}
         />
+
+        {/* 地平線の金色光 — 画面下端の暖色グロー */}
+        <div aria-hidden className="horizon-glow" />
 
         <div className="relative mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-2xl)">
           <div className="flex flex-col items-center text-center gap-(--spacing-ma-md)">

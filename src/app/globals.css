@@ -174,6 +174,58 @@
   background-size: 400px 400px;
 }
 
+/* 多色 nebula — ファンタジー異世界風の星雲。
+   紫紺 / 桃 / 橙 の 3 色を soft-light で重ね合わせる。
+   absolute レイヤーとして Hero に被せて使う。 */
+.nebula-fantasy {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    /* 紫の濃密ガス (upper-left) */
+    radial-gradient(
+      ellipse 50% 35% at 25% 25%,
+      rgb(140 70 180 / 0.32) 0%,
+      rgb(140 70 180 / 0.10) 40%,
+      transparent 70%
+    ),
+    /* 桃赤の渦 (mid-right) */
+    radial-gradient(
+      ellipse 45% 30% at 75% 40%,
+      rgb(220 90 130 / 0.26) 0%,
+      rgb(220 90 130 / 0.08) 45%,
+      transparent 70%
+    ),
+    /* 暖色の燃焼 (lower-left) */
+    radial-gradient(
+      ellipse 40% 30% at 30% 75%,
+      rgb(230 130 60 / 0.22) 0%,
+      rgb(230 130 60 / 0.06) 45%,
+      transparent 70%
+    ),
+    /* 水色の冷却 (upper-right) */
+    radial-gradient(
+      ellipse 35% 25% at 80% 15%,
+      rgb(80 140 200 / 0.22) 0%,
+      rgb(80 140 200 / 0.06) 45%,
+      transparent 70%
+    );
+}
+
+/* 地平線の金色光 — Hero 下端からの暖色グラデ */
+.horizon-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 65%,
+    rgb(230 150 60 / 0.18) 85%,
+    rgb(255 180 80 / 0.32) 100%
+  );
+}
+
 /* 金箔の glow を見出しに乗せる */
 .text-glow-kinpaku {
   color: rgb(var(--jp-shironeri));
