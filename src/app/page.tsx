@@ -104,7 +104,7 @@ export default function Home() {
               古来、人々は星と暦を見上げ、自分の位置を確かめながら、次の一歩を選んできたのです。
             </p>
             <p>
-              Fortune AI は、三つの占術を一度に走らせ、その結果の重なり方を可視化します。
+              星読みAI は、三つの占術を一度に走らせ、その結果の重なり方を可視化します。
               三術が同じ示唆を示すとき、それは強い手がかりかもしれない。
               三術が割れるとき、それは慎重さを要する局面かもしれない。
             </p>
@@ -218,7 +218,7 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <FortuneAIMark size="sm" />
             <span className="font-mincho text-(length:--text-body) tracking-(--tracking-jp-wide)">
-              Fortune AI
+              星読みAI
             </span>
           </div>
           <nav className="flex flex-wrap gap-(--spacing-ma-md) font-gothic text-(length:--text-caption) text-(--color-text-secondary)">

@@ -20,7 +20,7 @@ type Props = {
 };
 
 /**
- * Fortune AI のブランドマーク。
+ * 星読みAI のブランドマーク。
  *
  * デフォルトは「星」を **篆書体 (小篆) 風のインライン SVG** で描画する。
  * 真の篆書体フォントは商用フォントしか無いため、SealStar コンポーネントで
@@ -35,7 +35,7 @@ export function FortuneAIMark({
   size = "md",
   glyph = "星",
   className,
-  ariaLabel = "Fortune AI",
+  ariaLabel = "星読みAI",
 }: Props) {
   const h = heightPx[size];
 

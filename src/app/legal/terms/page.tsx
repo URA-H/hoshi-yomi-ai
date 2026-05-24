@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "利用規約",
-  description: "Fortune AI の利用規約",
+  description: "星読みAI の利用規約",
 };
 
 /**
@@ -25,7 +25,7 @@ export default function TermsPage() {
             第1条（適用）
           </h2>
           <p>
-            本規約は、当社が提供する Fortune AI（以下「本サービス」）の利用条件を定めるものです。
+            本規約は、当社が提供する 星読みAI（以下「本サービス」）の利用条件を定めるものです。
             ユーザーは本規約に同意のうえ本サービスを利用するものとし、利用開始をもって同意したものとみなします。
           </p>
         </section>

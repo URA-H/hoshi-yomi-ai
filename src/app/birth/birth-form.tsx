@@ -147,7 +147,7 @@ export function BirthForm({ initialValues }: Props) {
       {/* 同意 */}
       <div className="rounded-sm border border-(--color-border-subtle) bg-(--color-bg-elevated) p-4">
         <p className="text-(length:--text-caption) text-(--color-text-secondary) leading-relaxed">
-          ✓ Fortune AI は占術 × AI の解釈サービスで、未来の予測・保証ではありません。<br />
+          ✓ 星読みAI は占術 × AI の解釈サービスで、未来の予測・保証ではありません。<br />
           ✓ 医療・金融・法的判断は専門家にご相談ください。<br />
           ✓ いつでも結果を破棄できます。
         </p>

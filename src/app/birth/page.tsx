@@ -18,11 +18,11 @@ export default async function BirthPage() {
     <div className="bg-yozora-washi min-h-screen text-(--color-text-primary)">
       <header className="border-b border-(--color-border-subtle)">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-md) flex items-center gap-3">
-          <Link href="/" aria-label="Fortune AI ホーム">
+          <Link href="/" aria-label="星読みAI ホーム">
             <FortuneAIMark size="sm" />
           </Link>
           <span className="font-mincho text-(length:--text-body) tracking-(--tracking-jp-wide)">
-            <Link href="/">Fortune AI</Link>
+            <Link href="/">星読みAI</Link>
           </span>
         </div>
       </header>

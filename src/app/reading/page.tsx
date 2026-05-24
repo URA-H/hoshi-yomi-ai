@@ -40,7 +40,7 @@ export default async function ReadingPage() {
           <Link href="/" className="flex items-center gap-3">
             <FortuneAIMark size="sm" />
             <span className="font-mincho text-(length:--text-body) tracking-(--tracking-jp-wide)">
-              Fortune AI
+              星読みAI
             </span>
           </Link>
           <nav className="font-gothic text-(length:--text-caption)">

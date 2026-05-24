@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "免責事項",
-  description: "Fortune AI の免責事項",
+  description: "星読みAI の免責事項",
 };
 
 export default function DisclaimerPage() {

@@ -1,5 +1,5 @@
 /**
- * Fortune AI — Claude system prompt builder
+ * 星読みAI — Claude system prompt builder
  *
  * Anthropic のプロンプトキャッシュを活用するため、プロンプトを2層に分ける:
  *
@@ -23,7 +23,7 @@
  * 超えるサイズになり、`cache_control: { type: "ephemeral" }` が実効化する。
  * (Haiku 4.5 の最低値は 4096 のため、Haiku 経路では引き続きキャッシュ無効。)
  */
-export const STABLE_SYSTEM_HEADER = `あなたは Fortune AI の占術解釈AIです。
+export const STABLE_SYSTEM_HEADER = `あなたは 星読みAI の占術解釈AIです。
 四柱推命・九星気学・紫微斗数の伝統的解釈を統合し、ユーザーに読みやすい形で届けます。
 
 # 絶対に守ること

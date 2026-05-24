@@ -39,13 +39,13 @@ const seal = Yuji_Boku({
 
 export const metadata: Metadata = {
   title: {
-    default: "Fortune AI — 東洋三術 × AI",
-    template: "%s | Fortune AI",
+    default: "星読みAI — 東洋三術 × AI",
+    template: "%s | 星読みAI",
   },
   description:
     "東洋の智慧を、現代のAIで多角的に。四柱推命・九星気学・紫微斗数の合致から人生を読み解く、自己理解の補助具。",
   openGraph: {
-    title: "Fortune AI — 東洋三術 × AI",
+    title: "星読みAI — 東洋三術 × AI",
     description:
       "東洋の智慧を、現代のAIで多角的に。三千年の経験知を、AIが統合して読み解きます。",
     locale: "ja_JP",

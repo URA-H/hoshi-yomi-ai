@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
-  description: "Fortune AI のプライバシーポリシー",
+  description: "星読みAI のプライバシーポリシー",
 };
 
 export default function PrivacyPage() {
