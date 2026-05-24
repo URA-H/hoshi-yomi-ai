@@ -46,8 +46,10 @@ export function FortuneAIMark({
         aria-label={ariaLabel}
         className={cn(
           "inline-flex items-center justify-center select-none",
-          "text-(--color-kinpaku)",
-          "[filter:drop-shadow(0_0_10px_rgb(201_168_76/0.55))_drop-shadow(0_0_24px_rgb(91_50_112/0.35))]",
+          // 臙脂色 — 朱印 / 落款の深紅。dark cosmic 背景に映える
+          "text-(--color-enji)",
+          // 控えめな臙脂 glow + 紫紺の遠 glow
+          "[filter:drop-shadow(0_0_8px_rgb(182_48_62/0.5))_drop-shadow(0_0_22px_rgb(91_50_112/0.3))]",
           className,
         )}
       >

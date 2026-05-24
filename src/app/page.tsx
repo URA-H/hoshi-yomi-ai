@@ -6,7 +6,6 @@ import { FortuneAIMark } from "@/components/fortune-ai-mark";
 import { ResultCard } from "@/components/result-card";
 import { ConstellationEmblem } from "@/components/constellation-emblem";
 import { OrnamentFlourish } from "@/components/ornament-flourish";
-import { JapaneseCloud } from "@/components/japanese-cloud";
 
 export default function Home() {
   return (
@@ -27,38 +26,6 @@ export default function Home() {
               "radial-gradient(circle, rgb(91 50 112 / 0.18) 0%, transparent 55%)",
           }}
         />
-
-        {/* 日本画風 — 三層連山 (Hero 下部に重ねる) */}
-        <div
-          aria-hidden
-          className="absolute bottom-0 left-0 right-0 h-[300px] pointer-events-none"
-          style={{
-            backgroundImage: "url('/textures/nihonga-mountains.svg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center bottom",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-
-        {/* 琳派風の雲帯 — 右流れと左流れを散らす */}
-        <div
-          aria-hidden
-          className="absolute top-[60px] left-[-60px] opacity-60 pointer-events-none"
-        >
-          <JapaneseCloud width={420} />
-        </div>
-        <div
-          aria-hidden
-          className="absolute top-[180px] right-[-100px] opacity-50 pointer-events-none"
-        >
-          <JapaneseCloud width={460} flip />
-        </div>
-        <div
-          aria-hidden
-          className="absolute bottom-[280px] left-[20%] opacity-40 pointer-events-none hidden md:block"
-        >
-          <JapaneseCloud width={320} />
-        </div>
 
         <div className="relative mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-2xl)">
           <div className="flex flex-col items-center text-center gap-(--spacing-ma-md)">

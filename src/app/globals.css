@@ -18,6 +18,7 @@
   --jp-shikon: 91 50 112;        /* #5B3270 紫紺  — decor only */
   --jp-usumurasaki: 167 139 191; /* #A78BBF 薄紫  — text-safe variant */
   --jp-shironeri: 243 240 230;   /* #F3F0E6 白練  — AAA on shikkoku */
+  --jp-enji: 182 48 62;          /* #B6303E 臙脂色 (deep crimson) — SealStar brand color */
 
   /* Semantic tokens (use these in components) */
   --color-bg-base: rgb(var(--jp-shikkoku));
@@ -75,6 +76,7 @@
   --color-shikon: rgb(var(--jp-shikon));
   --color-usumurasaki: rgb(var(--jp-usumurasaki));
   --color-shironeri: rgb(var(--jp-shironeri));
+  --color-enji: rgb(var(--jp-enji));
 
   /* Fonts */
   --font-mincho: var(--font-mincho), "Zen Old Mincho", serif;
