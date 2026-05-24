@@ -1,34 +1,35 @@
 import { cn } from "@/lib/utils";
+import { SealStar } from "./seal-star";
 
 type Size = "sm" | "md" | "lg" | "xl";
 
-// 文字サイズ (px) - 赤枠を廃止したのでフレーム寸法は不要、文字自体のサイズを直接定義
-const fontPx: Record<Size, number> = {
-  sm: 28, // navbar/footer 用
-  md: 56, // 中間
-  lg: 96, // Hero 用
-  xl: 144, // 特別演出
+// 高さ (px)。SVG「星」は縦長比 (120:160) なので幅は約 0.75 倍。
+const heightPx: Record<Size, number> = {
+  sm: 28,
+  md: 56,
+  lg: 96,
+  xl: 144,
 };
 
 type Props = {
   size?: Size;
-  /** 表示する一文字。デフォルト「星」(占星術の中核モチーフ) */
+  /** 表示する一文字。`"星"` は篆書体 SVG で描画。それ以外は Yuji Boku で描画 */
   glyph?: string;
-  /** 追加クラス */
   className?: string;
-  /** スクリーンリーダー用ラベル */
   ariaLabel?: string;
 };
 
 /**
  * Fortune AI のブランドマーク。
  *
- * 赤い stamp フレームを廃止し、Yuji Boku (筆書) の「星」一字を金箔色で
- * 単独表示する。文字そのものをロゴとして扱う和洋折衷の判子的アプローチ。
+ * デフォルトは「星」を **篆書体 (小篆) 風のインライン SVG** で描画する。
+ * 真の篆書体フォントは商用フォントしか無いため、SealStar コンポーネントで
+ * 篆書の運筆 (均一な太さ + 丸い起筆収筆 + 縦長比) を再現している。
  *
- * - フォント: var(--font-seal) → Yuji Boku
- * - 着色: 金箔 → 朱明 → 金箔 のグラデ、テキストクリップ
- * - エフェクト: 金箔の glow + 紫紺の遠 glow
+ * 着色は currentColor で金箔単色、外側に金箔 + 紫紺の二重 drop-shadow glow。
+ * 篆書の凛とした単純さを活かすため、グラデーション塗りは敢えて省略。
+ *
+ * `glyph` を変えると Yuji Boku フォントによるフォールバック表示になる。
  */
 export function FortuneAIMark({
   size = "md",
@@ -36,6 +37,26 @@ export function FortuneAIMark({
   className,
   ariaLabel = "Fortune AI",
 }: Props) {
+  const h = heightPx[size];
+
+  if (glyph === "星") {
+    return (
+      <span
+        role="img"
+        aria-label={ariaLabel}
+        className={cn(
+          "inline-flex items-center justify-center select-none",
+          "text-(--color-kinpaku)",
+          "[filter:drop-shadow(0_0_10px_rgb(201_168_76/0.55))_drop-shadow(0_0_24px_rgb(91_50_112/0.35))]",
+          className,
+        )}
+      >
+        <SealStar size={h} ariaLabel={glyph} />
+      </span>
+    );
+  }
+
+  // フォールバック: Yuji Boku のテキスト描画
   return (
     <span
       role="img"
@@ -44,7 +65,7 @@ export function FortuneAIMark({
         "seal-mark inline-flex items-center justify-center select-none",
         className,
       )}
-      style={{ fontSize: fontPx[size] }}
+      style={{ fontSize: h }}
     >
       <span aria-hidden className="leading-none">
         {glyph}
