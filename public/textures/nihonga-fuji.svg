@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" preserveAspectRatio="xMidYMax meet">
+  <defs>
+    <linearGradient id="fuji-snow-grad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#FAFAF5" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#F0E4C7" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#E1C997" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fuji-body-grad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#7C8A8A" stop-opacity="0.16"/>
+      <stop offset="50%" stop-color="#5C6F6F" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#3F5546" stop-opacity="0.30"/>
+    </linearGradient>
+    <filter id="fuji-soft" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Fuji body — 寛やかな弧 -->
+  <path
+    d="M 0 380 C 150 372, 240 345, 310 270 C 345 200, 380 145, 400 125 L 420 125 C 440 145, 475 200, 510 270 C 580 345, 670 372, 800 380 L 800 500 L 0 500 Z"
+    fill="url(#fuji-body-grad)"
+    filter="url(#fuji-soft)"
+  />
+
+  <!-- Snow cap — 雪が裾に至る不規則なエッジ -->
+  <path
+    d="M 322 260 C 348 215, 378 155, 400 128 L 420 128 C 442 155, 472 215, 498 260 L 486 252 L 470 226 L 454 248 L 432 218 L 416 238 L 400 210 L 384 238 L 368 218 L 348 248 L 332 222 L 322 260 Z"
+    fill="url(#fuji-snow-grad)"
+  />
+
+  <!-- Crater rim hint -->
+  <path
+    d="M 396 124 Q 410 122, 424 124"
+    fill="none"
+    stroke="#7C8A8A"
+    stroke-width="0.6"
+    opacity="0.5"
+  />
+</svg>

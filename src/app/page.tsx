@@ -1,83 +1,64 @@
 import Link from "next/link";
-import { Button } from "@/components/button";
 import { ConcordanceBadge } from "@/components/concordance-badge";
-import { Divider } from "@/components/divider";
-import { FortuneAIMark } from "@/components/fortune-ai-mark";
 import { ResultCard } from "@/components/result-card";
-import { ConstellationEmblem } from "@/components/constellation-emblem";
 import { OrnamentFlourish } from "@/components/ornament-flourish";
-import { JapaneseCloud } from "@/components/japanese-cloud";
 
 export default function Home() {
   return (
-    <div className="bg-yozora-washi text-(--color-text-primary)">
-      {/* Hero */}
-      <section className="relative bg-nebula-hero overflow-hidden">
-        {/* 星屑のオーバーレイ */}
+    <div className="bg-washi-paper text-(--color-sumi)">
+      {/* ────────────────────────────────────────
+          Hero — 大観テイストの絹本風 backdrop
+          ──────────────────────────────────────── */}
+      <section className="relative overflow-hidden min-h-[100vh]">
+        {/* 富士 — 上方中央に薄く佇む */}
         <div
           aria-hidden
-          className="absolute inset-0 bg-starfield opacity-50 pointer-events-none"
-        />
-        {/* 背景の巨大な魔法陣 backdrop (発光する円環、テキストの後ろに薄く敷く) */}
-        <div
-          aria-hidden
-          className="absolute top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] pointer-events-none opacity-30"
+          className="absolute top-[8%] left-1/2 -translate-x-1/2 w-[80%] max-w-[900px] pointer-events-none opacity-95"
           style={{
-            background:
-              "radial-gradient(circle, rgb(91 50 112 / 0.18) 0%, transparent 55%)",
+            backgroundImage: "url('/textures/nihonga-fuji.svg')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center top",
+            aspectRatio: "800/500",
           }}
         />
 
-        {/* 日本画風 — 三層連山 (Hero 下部に重ねる) */}
+        {/* 中景の連山 — 画面下方に重ねる */}
         <div
           aria-hidden
-          className="absolute bottom-0 left-0 right-0 h-[300px] pointer-events-none"
+          className="absolute bottom-[80px] left-0 right-0 h-[280px] pointer-events-none"
           style={{
-            backgroundImage: "url('/textures/nihonga-mountains.svg')",
+            backgroundImage: "url('/textures/nihonga-far-mountains.svg')",
             backgroundSize: "cover",
             backgroundPosition: "center bottom",
             backgroundRepeat: "no-repeat",
           }}
         />
 
-        {/* 琳派風の雲帯 — 右流れと左流れを散らす */}
+        {/* 松林 — 最前景 */}
         <div
           aria-hidden
-          className="absolute top-[60px] left-[-60px] opacity-60 pointer-events-none"
-        >
-          <JapaneseCloud width={420} />
-        </div>
-        <div
-          aria-hidden
-          className="absolute top-[180px] right-[-100px] opacity-50 pointer-events-none"
-        >
-          <JapaneseCloud width={460} flip />
-        </div>
-        <div
-          aria-hidden
-          className="absolute bottom-[280px] left-[20%] opacity-40 pointer-events-none hidden md:block"
-        >
-          <JapaneseCloud width={320} />
-        </div>
+          className="absolute bottom-0 left-0 right-0 h-[140px] pointer-events-none"
+          style={{
+            backgroundImage: "url('/textures/nihonga-pines.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center bottom",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
 
-        <div className="relative mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-2xl)">
+        {/* 霞 — 富士の裾と山々の間に流れる */}
+        <div aria-hidden className="nihonga-mist" />
+
+        {/* コンテンツ */}
+        <div className="relative mx-auto max-w-5xl px-6 pt-32 pb-[420px]">
           <div className="flex flex-col items-center text-center gap-(--spacing-ma-md)">
-            <FortuneAIMark size="xl" glyph="星" />
-
-            {/* 中央の占星術盤エンブレム */}
-            <div className="my-(--spacing-ma-md)">
-              <ConstellationEmblem
-                size={320}
-                className="drop-shadow-[0_0_50px_rgb(91_50_112/0.45)]"
-              />
-            </div>
-
-            {/* 詩的なリード — H1 より小さく、装飾的に */}
-            <p className="font-decorative text-(length:--text-body-lg) tracking-(--tracking-jp-decorative) text-(--color-accent-emphasis)/85 italic">
+            {/* 詩的なリード — 装飾フォントで小さく */}
+            <p className="font-decorative text-(length:--text-body-lg) tracking-(--tracking-jp-decorative) text-(--color-kincha) italic mt-[260px]">
               三つの星々が交わるとき、道筋が見えてくる。
             </p>
 
-            <h1 className="font-mincho text-(length:--text-display) tracking-(--tracking-jp-normal) leading-(--text-display--line-height) text-glow-kinpaku-strong max-w-3xl">
+            <h1 className="font-mincho text-(length:--text-display) tracking-(--tracking-jp-normal) leading-(--text-display--line-height) text-(--color-sumi) max-w-3xl">
               東洋の智慧を、
               <br />
               現代のAIで多角的に。
@@ -87,7 +68,7 @@ export default function Home() {
               <div className="ornament-flourish-diamond" />
             </div>
 
-            <p className="font-gothic text-(length:--text-body-lg) tracking-(--tracking-jp-normal) text-(--color-text-secondary) max-w-prose leading-[1.85]">
+            <p className="font-gothic text-(length:--text-body-lg) tracking-(--tracking-jp-normal) text-(--color-seiboku) max-w-prose leading-[1.85]">
               四柱推命・九星気学・紫微斗数。
               三千年の経験知を、AIが統合して読み解きます。
               <br />
@@ -97,25 +78,41 @@ export default function Home() {
 
             <div className="flex flex-wrap justify-center gap-3 pt-(--spacing-ma-sm)">
               <Link href="/birth">
-                <Button variant="primary" size="lg">
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-sm min-h-[52px] px-8 font-mincho tracking-(--tracking-jp-wide) text-(length:--text-body-lg) bg-(--color-shuiin) text-(--color-torinoko) hover:bg-(--color-shuiin)/85 active:bg-(--color-shuiin)/95 transition-colors shadow-sm shadow-(--color-shuiin)/30"
+                >
                   無料で始める
-                </Button>
+                </button>
               </Link>
-              <Button variant="secondary" size="lg">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-sm min-h-[52px] px-8 font-mincho tracking-(--tracking-jp-wide) text-(length:--text-body-lg) bg-transparent text-(--color-sumi) border border-(--color-kincha)/60 hover:bg-(--color-kincha)/10 transition-colors"
+              >
                 占術の解説を読む
-              </Button>
+              </button>
             </div>
           </div>
         </div>
+
+        {/* 朱印 — 右下に大観風 */}
+        <div
+          aria-hidden
+          className="absolute bottom-[180px] right-[40px] pointer-events-none rotate-3 hidden md:block"
+        >
+          <span className="shuiin-seal text-[18px] font-mincho">星</span>
+        </div>
       </section>
 
-      {/* なぜ */}
-      <section className="relative border-t border-(--color-border-subtle)">
+      {/* ────────────────────────────────────────
+          なぜ
+          ──────────────────────────────────────── */}
+      <section className="relative border-t border-(--color-kincha)/30">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku mb-(--spacing-ma-md)">
+          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-(--color-sumi) mb-(--spacing-ma-md)">
             なぜ、いま東洋占術 × AI なのか
           </h2>
-          <div className="font-gothic text-(length:--text-body-lg) leading-[1.85] tracking-(--tracking-jp-normal) text-(--color-text-secondary) space-y-(--spacing-ma-md)">
+          <div className="font-gothic text-(length:--text-body-lg) leading-[1.85] tracking-(--tracking-jp-normal) text-(--color-seiboku) space-y-(--spacing-ma-md)">
             <p>
               占いには長く誤解がついてまわります。
               「当たる・当たらない」「絶対・確実」といった、本来の占術が目指してこなかった軸での評価です。
@@ -140,10 +137,12 @@ export default function Home() {
 
       <OrnamentFlourish />
 
-      {/* 合致度 */}
-      <section className="relative border-t border-(--color-border-subtle) bg-(--color-bg-surface)/40">
+      {/* ────────────────────────────────────────
+          合致度
+          ──────────────────────────────────────── */}
+      <section className="relative border-t border-(--color-kincha)/30">
         <div className="mx-auto max-w-4xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku mb-(--spacing-ma-lg)">
+          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-(--color-sumi) mb-(--spacing-ma-lg)">
             信頼性ではなく、合致度を示します
           </h2>
 
@@ -168,17 +167,17 @@ export default function Home() {
             ).map((item) => (
               <div
                 key={item.level}
-                className="rounded-sm border border-(--color-border-subtle) bg-(--color-bg-surface) p-6 shadow-[inset_0_0_0_1px_rgb(201_168_76/0.05)]"
+                className="rounded-sm border border-(--color-kincha)/40 bg-(--color-torinoko)/60 p-6 backdrop-blur-sm"
               >
                 <ConcordanceBadge level={item.level} />
-                <p className="mt-4 font-gothic text-(length:--text-body) leading-[1.8] tracking-(--tracking-jp-normal) text-(--color-text-secondary)">
+                <p className="mt-4 font-gothic text-(length:--text-body) leading-[1.8] tracking-(--tracking-jp-normal) text-(--color-seiboku)">
                   {item.description}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="mt-(--spacing-ma-md) font-gothic text-(length:--text-caption) text-(--color-text-muted)">
+          <p className="mt-(--spacing-ma-md) font-gothic text-(length:--text-caption) text-(--color-kincha)">
             ※ 合致度は「未来の確実性」ではなく、「三術の解釈の重なり度合い」を示すものです。
           </p>
         </div>
@@ -186,10 +185,12 @@ export default function Home() {
 
       <OrnamentFlourish />
 
-      {/* サンプル結果プレビュー */}
-      <section className="relative border-t border-(--color-border-subtle)">
+      {/* ────────────────────────────────────────
+          レポート例
+          ──────────────────────────────────────── */}
+      <section className="relative border-t border-(--color-kincha)/30">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku mb-(--spacing-ma-lg)">
+          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-(--color-sumi) mb-(--spacing-ma-lg)">
             レポート例
           </h2>
           <ResultCard
@@ -214,39 +215,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative border-t border-(--color-border-subtle)">
+      {/* ────────────────────────────────────────
+          CTA
+          ──────────────────────────────────────── */}
+      <section className="relative border-t border-(--color-kincha)/30">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-2xl) text-center">
-          <Divider className="mx-auto max-w-xs" />
-          <h2 className="mt-(--spacing-ma-lg) font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku-strong">
+          <div className="ornament-flourish max-w-xs mx-auto">
+            <div className="ornament-flourish-diamond" />
+          </div>
+          <h2 className="mt-(--spacing-ma-lg) font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-(--color-sumi)">
             自分を、もう一度見つめなおす
           </h2>
-          <p className="mt-(--spacing-ma-md) font-gothic text-(length:--text-body) text-(--color-text-secondary)">
+          <p className="mt-(--spacing-ma-md) font-gothic text-(length:--text-body) text-(--color-seiboku)">
             登録は1分で完了します。いつでも1画面で解約できます。
           </p>
           <div className="mt-(--spacing-ma-lg) flex justify-center gap-3">
             <Link href="/birth">
-              <Button variant="primary" size="lg">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-sm min-h-[52px] px-8 font-mincho tracking-(--tracking-jp-wide) text-(length:--text-body-lg) bg-(--color-shuiin) text-(--color-torinoko) hover:bg-(--color-shuiin)/85 active:bg-(--color-shuiin)/95 transition-colors shadow-sm shadow-(--color-shuiin)/30"
+              >
                 無料で始める
-              </Button>
+              </button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-(--color-border-subtle) py-(--spacing-ma-lg)">
+      {/* ────────────────────────────────────────
+          Footer
+          ──────────────────────────────────────── */}
+      <footer className="border-t border-(--color-kincha)/30 py-(--spacing-ma-lg) bg-(--color-tonoko)/30">
         <div className="mx-auto max-w-5xl px-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <FortuneAIMark size="sm" />
-            <span className="font-mincho text-(length:--text-body) tracking-(--tracking-jp-wide)">
+            <span className="shuiin-seal text-[14px] font-mincho">星</span>
+            <span className="font-mincho text-(length:--text-body) tracking-(--tracking-jp-wide) text-(--color-sumi)">
               Fortune AI
             </span>
           </div>
-          <nav className="flex flex-wrap gap-(--spacing-ma-md) font-gothic text-(length:--text-caption) text-(--color-text-secondary)">
-            <Link href="/legal/terms">利用規約</Link>
-            <Link href="/legal/disclaimer">免責事項</Link>
-            <Link href="/legal/privacy">プライバシー</Link>
+          <nav className="flex flex-wrap gap-(--spacing-ma-md) font-gothic text-(length:--text-caption) text-(--color-seiboku)">
+            <Link href="/legal/terms" className="hover:text-(--color-sumi)">利用規約</Link>
+            <Link href="/legal/disclaimer" className="hover:text-(--color-sumi)">免責事項</Link>
+            <Link href="/legal/privacy" className="hover:text-(--color-sumi)">プライバシー</Link>
           </nav>
         </div>
       </footer>
