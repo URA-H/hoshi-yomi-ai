@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Zen_Old_Mincho, Zen_Kaku_Gothic_New, Shippori_Mincho_B1 } from "next/font/google";
+import {
+  Zen_Old_Mincho,
+  Zen_Kaku_Gothic_New,
+  Shippori_Mincho_B1,
+  Yuji_Boku,
+} from "next/font/google";
 import "./globals.css";
 
 const mincho = Zen_Old_Mincho({
@@ -19,6 +24,15 @@ const gothic = Zen_Kaku_Gothic_New({
 const decorative = Shippori_Mincho_B1({
   variable: "--font-decorative",
   weight: ["400", "600", "800"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+// 筆書ロゴ用 — 篆書体の完全再現フォントは無料では入手困難。
+// Yuji Boku は墨と筆の運筆を残した最も古典的な無料 JP フォント。
+const seal = Yuji_Boku({
+  variable: "--font-seal",
+  weight: ["400"],
   subsets: ["latin"],
   display: "swap",
 });
@@ -47,7 +61,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`dark ${mincho.variable} ${gothic.variable} ${decorative.variable} h-full antialiased`}
+      className={`dark ${mincho.variable} ${gothic.variable} ${decorative.variable} ${seal.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-bg-base text-text-primary font-gothic">

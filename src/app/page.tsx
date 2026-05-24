@@ -28,8 +28,8 @@ export default function Home() {
         />
 
         <div className="relative mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-2xl)">
-          <div className="flex flex-col items-center text-center gap-(--spacing-ma-lg)">
-            <FortuneAIMark size="md" glyph="易" />
+          <div className="flex flex-col items-center text-center gap-(--spacing-ma-md)">
+            <FortuneAIMark size="xl" glyph="星" />
 
             {/* 中央の占星術盤エンブレム */}
             <div className="my-(--spacing-ma-md)">

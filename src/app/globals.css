@@ -80,6 +80,7 @@
   --font-mincho: var(--font-mincho), "Zen Old Mincho", serif;
   --font-gothic: var(--font-gothic), "Zen Kaku Gothic New", sans-serif;
   --font-decorative: var(--font-decorative), "Shippori Mincho B1", serif;
+  --font-seal: var(--font-seal), "Yuji Boku", "Shippori Mincho B1", serif;
 
   /* Typography scale (東洋の書斎: wider line-height, generous breathing) */
   --text-display: clamp(3rem, 5vw, 4rem);
@@ -273,7 +274,7 @@
   filter: blur(3px);
 }
 
-/* 朱印 stamp */
+/* 朱印 stamp — 後方互換のため残置 (新規利用は SealMark を推奨) */
 .stamp-shuin {
   display: inline-flex;
   align-items: center;
@@ -287,6 +288,27 @@
     inset 0 0 0 2px rgb(var(--jp-shuiro)),
     inset 0 0 0 3px rgb(var(--jp-shironeri) / 0.15);
   filter: contrast(0.95);
+}
+
+/* 筆書ロゴマーク — 「星」を金箔色 + 微細なグロー + 微細な ink-bleed 演出
+   赤枠なし。 篆書体に近い Yuji Boku を最大限活かす */
+.seal-mark {
+  display: inline-block;
+  font-family: var(--font-seal);
+  line-height: 1;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--jp-kinpaku)) 0%,
+    rgb(var(--jp-shumei) / 0.85) 60%,
+    rgb(var(--jp-kinpaku) / 0.9) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 0 10px rgb(var(--jp-kinpaku) / 0.45))
+    drop-shadow(0 0 24px rgb(var(--jp-shikon) / 0.35));
+  transform: translateY(-0.05em);
 }
 
 /* ===========================================
