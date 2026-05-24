@@ -4,23 +4,46 @@ import { ConcordanceBadge } from "@/components/concordance-badge";
 import { Divider } from "@/components/divider";
 import { FortuneAIMark } from "@/components/fortune-ai-mark";
 import { ResultCard } from "@/components/result-card";
+import { ConstellationEmblem } from "@/components/constellation-emblem";
+import { OrnamentFlourish } from "@/components/ornament-flourish";
 
 export default function Home() {
   return (
     <div className="bg-yozora-washi text-(--color-text-primary)">
       {/* Hero */}
-      <section className="relative">
-        <div className="mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-xl)">
-          <div className="flex flex-col items-start gap-(--spacing-ma-lg)">
+      <section className="relative bg-nebula-hero overflow-hidden">
+        {/* 星屑のオーバーレイ */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-starfield opacity-50 pointer-events-none"
+        />
+
+        <div className="relative mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-2xl)">
+          <div className="flex flex-col items-center text-center gap-(--spacing-ma-lg)">
             <FortuneAIMark size="md" glyph="易" />
 
-            <h1 className="font-mincho text-(length:--text-display) tracking-(--tracking-jp-normal) leading-(--text-display--line-height)">
-              戦国武将も用いた
-              <br />
+            {/* 中央の星座エンブレム */}
+            <div className="my-(--spacing-ma-sm)">
+              <ConstellationEmblem
+                size={240}
+                className="drop-shadow-[0_0_40px_rgb(91_50_112/0.35)]"
+              />
+            </div>
+
+            {/* 詩的なリード — H1 より小さく、装飾的に */}
+            <p className="font-decorative text-(length:--text-body-lg) tracking-(--tracking-jp-decorative) text-(--color-accent-emphasis)/85 italic">
+              三つの星々が交わるとき、道筋が見えてくる。
+            </p>
+
+            <h1 className="font-mincho text-(length:--text-display) tracking-(--tracking-jp-normal) leading-(--text-display--line-height) text-glow-kinpaku-strong max-w-3xl">
               東洋の智慧を、
               <br />
               現代のAIで多角的に。
             </h1>
+
+            <div className="ornament-flourish max-w-xs">
+              <div className="ornament-flourish-diamond" />
+            </div>
 
             <p className="font-gothic text-(length:--text-body-lg) tracking-(--tracking-jp-normal) text-(--color-text-secondary) max-w-prose leading-[1.85]">
               四柱推命・九星気学・紫微斗数。
@@ -30,7 +53,7 @@ export default function Home() {
               最終的な判断は、あなたの手の中に。
             </p>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center gap-3 pt-(--spacing-ma-sm)">
               <Link href="/birth">
                 <Button variant="primary" size="lg">
                   無料で始める
@@ -47,7 +70,7 @@ export default function Home() {
       {/* なぜ */}
       <section className="relative border-t border-(--color-border-subtle)">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) mb-(--spacing-ma-md)">
+          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku mb-(--spacing-ma-md)">
             なぜ、いま東洋占術 × AI なのか
           </h2>
           <div className="font-gothic text-(length:--text-body-lg) leading-[1.85] tracking-(--tracking-jp-normal) text-(--color-text-secondary) space-y-(--spacing-ma-md)">
@@ -58,7 +81,7 @@ export default function Home() {
             <p>
               東洋の三大占術 — 四柱推命・九星気学・紫微斗数 — は、本来「未来を当てる装置」ではなく、
               人生の流れを読み、選択の質を高めるための意思決定の補助具として用いられてきました。
-              戦国武将が軍師に占術を学ばせたのも、未来を予知するためではなく、判断の角度を増やすためでした。
+              古来、人々は星と暦を見上げ、自分の位置を確かめながら、次の一歩を選んできたのです。
             </p>
             <p>
               Fortune AI は、三つの占術を一度に走らせ、その結果の重なり方を可視化します。
@@ -73,10 +96,12 @@ export default function Home() {
         </div>
       </section>
 
+      <OrnamentFlourish />
+
       {/* 合致度 */}
       <section className="relative border-t border-(--color-border-subtle) bg-(--color-bg-surface)/40">
         <div className="mx-auto max-w-4xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) mb-(--spacing-ma-lg)">
+          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku mb-(--spacing-ma-lg)">
             信頼性ではなく、合致度を示します
           </h2>
 
@@ -101,7 +126,7 @@ export default function Home() {
             ).map((item) => (
               <div
                 key={item.level}
-                className="rounded-sm border border-(--color-border-subtle) bg-(--color-bg-surface) p-6"
+                className="rounded-sm border border-(--color-border-subtle) bg-(--color-bg-surface) p-6 shadow-[inset_0_0_0_1px_rgb(201_168_76/0.05)]"
               >
                 <ConcordanceBadge level={item.level} />
                 <p className="mt-4 font-gothic text-(length:--text-body) leading-[1.8] tracking-(--tracking-jp-normal) text-(--color-text-secondary)">
@@ -117,10 +142,12 @@ export default function Home() {
         </div>
       </section>
 
+      <OrnamentFlourish />
+
       {/* サンプル結果プレビュー */}
       <section className="relative border-t border-(--color-border-subtle)">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) mb-(--spacing-ma-lg)">
+          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku mb-(--spacing-ma-lg)">
             レポート例
           </h2>
           <ResultCard
@@ -145,50 +172,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 私たちの約束 */}
-      <section className="relative border-t border-(--color-border-subtle) bg-(--color-bg-surface)/60">
-        <div className="mx-auto max-w-4xl px-6 py-(--spacing-ma-2xl)">
-          <h2 className="font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) mb-(--spacing-ma-lg)">
-            私たちの約束
-          </h2>
-          <p className="font-gothic text-(length:--text-body-lg) text-(--color-text-secondary) mb-(--spacing-ma-lg) leading-[1.85]">
-            Fortune AI は、占い業界で繰り返されてきた問題と距離を置きます。
-          </p>
-
-          <div className="grid gap-(--spacing-ma-md) md:grid-cols-2">
-            <div>
-              <h3 className="font-mincho text-(length:--text-h3) text-(--color-accent-warning) mb-3">
-                私たちがしないこと
-              </h3>
-              <ul className="space-y-2 font-gothic text-(length:--text-body) text-(--color-text-secondary)">
-                <li>✗ 「絶対当たる」「100%的中」と謳うこと</li>
-                <li>✗ 不安を煽って課金を促すこと</li>
-                <li>✗ 「祟り」「呪い」を理由に追加課金を求めること</li>
-                <li>✗ 解約を妨げる設計をすること</li>
-                <li>✗ 重要な医療・金融・法的判断に占いだけで決めるよう促すこと</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-mincho text-(length:--text-h3) text-(--color-accent-emphasis) mb-3">
-                私たちがすること
-              </h3>
-              <ul className="space-y-2 font-gothic text-(length:--text-body) text-(--color-text-secondary)">
-                <li>✓ 三術の合致度を、誠実に可視化すること</li>
-                <li>✓ 「凶」の示唆には、建設的な対処の提案を添えること</li>
-                <li>✓ 解約をいつでも1画面で完了できるようにすること</li>
-                <li>✓ 重大な判断には専門家への相談を促すこと</li>
-                <li>✓ あなたの最終判断を尊重すること</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="relative border-t border-(--color-border-subtle)">
         <div className="mx-auto max-w-3xl px-6 py-(--spacing-ma-2xl) text-center">
           <Divider className="mx-auto max-w-xs" />
-          <h2 className="mt-(--spacing-ma-lg) font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal)">
+          <h2 className="mt-(--spacing-ma-lg) font-mincho text-(length:--text-h1) tracking-(--tracking-jp-normal) text-glow-kinpaku-strong">
             自分を、もう一度見つめなおす
           </h2>
           <p className="mt-(--spacing-ma-md) font-gothic text-(length:--text-body) text-(--color-text-secondary)">

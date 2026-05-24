@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <!-- 星屑 — 不均一に分布させた点光源。タイルしても自然に見えるよう端付近を弱めに -->
+  <g fill="#F3F0E6">
+    <circle cx="23" cy="45" r="0.6" opacity="0.55"/>
+    <circle cx="78" cy="22" r="0.5" opacity="0.4"/>
+    <circle cx="142" cy="68" r="0.8" opacity="0.7"/>
+    <circle cx="195" cy="34" r="0.5" opacity="0.45"/>
+    <circle cx="258" cy="55" r="0.7" opacity="0.6"/>
+    <circle cx="312" cy="29" r="0.5" opacity="0.4"/>
+    <circle cx="368" cy="72" r="0.6" opacity="0.5"/>
+    <circle cx="48" cy="118" r="0.5" opacity="0.45"/>
+    <circle cx="105" cy="142" r="0.9" opacity="0.75"/>
+    <circle cx="167" cy="105" r="0.4" opacity="0.35"/>
+    <circle cx="220" cy="138" r="0.7" opacity="0.6"/>
+    <circle cx="285" cy="115" r="0.5" opacity="0.45"/>
+    <circle cx="345" cy="148" r="0.8" opacity="0.65"/>
+    <circle cx="18" cy="195" r="0.6" opacity="0.5"/>
+    <circle cx="72" cy="218" r="0.4" opacity="0.35"/>
+    <circle cx="128" cy="188" r="0.5" opacity="0.45"/>
+    <circle cx="185" cy="212" r="0.8" opacity="0.7"/>
+    <circle cx="245" cy="195" r="0.5" opacity="0.4"/>
+    <circle cx="298" cy="232" r="0.7" opacity="0.6"/>
+    <circle cx="355" cy="208" r="0.5" opacity="0.45"/>
+    <circle cx="38" cy="275" r="0.6" opacity="0.55"/>
+    <circle cx="98" cy="298" r="0.5" opacity="0.4"/>
+    <circle cx="155" cy="265" r="0.9" opacity="0.7"/>
+    <circle cx="208" cy="288" r="0.4" opacity="0.35"/>
+    <circle cx="268" cy="275" r="0.7" opacity="0.6"/>
+    <circle cx="325" cy="305" r="0.5" opacity="0.45"/>
+    <circle cx="60" cy="345" r="0.6" opacity="0.5"/>
+    <circle cx="118" cy="368" r="0.5" opacity="0.4"/>
+    <circle cx="178" cy="342" r="0.7" opacity="0.6"/>
+    <circle cx="235" cy="378" r="0.4" opacity="0.35"/>
+    <circle cx="295" cy="355" r="0.8" opacity="0.65"/>
+    <circle cx="358" cy="382" r="0.5" opacity="0.45"/>
+  </g>
+  <!-- ほんの数粒、金箔色 -->
+  <g fill="#C9A84C">
+    <circle cx="92" cy="88" r="0.5" opacity="0.55"/>
+    <circle cx="248" cy="158" r="0.6" opacity="0.5"/>
+    <circle cx="148" cy="248" r="0.5" opacity="0.55"/>
+    <circle cx="322" cy="58" r="0.4" opacity="0.5"/>
+    <circle cx="208" cy="328" r="0.5" opacity="0.5"/>
+  </g>
+</svg>

@@ -133,13 +133,110 @@
  * Decoration utilities — 装飾レシピ
  * =========================================== */
 
-/* 夜空に和紙 — main background */
+/* 夜空に和紙 — main background。
+   深宇宙の奥行きを 4層 のグラデーションで作る:
+     1. 紫紺の極光 (top)
+     2. 藍色の海の奥行 (bottom)
+     3. 薄紫の漂い (center)
+     4. 和紙テクスチャ (微細ノイズ) */
 .bg-yozora-washi {
   background-color: rgb(var(--jp-shikkoku));
   background-image:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.94 0 0 0 0 0.9 0 0 0 0.015 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
-    radial-gradient(ellipse at 50% 30%, rgb(var(--jp-aiiro) / 0.15) 0%, transparent 60%);
-  background-size: 200px 200px, 100% 100%;
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.94 0 0 0 0 0.9 0 0 0 0.012 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),
+    radial-gradient(ellipse 80% 50% at 50% -5%, rgb(var(--jp-shikon) / 0.32) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 45% at 50% 110%, rgb(var(--jp-aiiro) / 0.28) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 40%, rgb(var(--jp-usumurasaki) / 0.06) 0%, transparent 70%);
+  background-size: 200px 200px, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed, fixed, fixed, fixed;
+}
+
+/* Hero 用 — bg-yozora-washi の上にさらに重ねて深さを増す */
+.bg-nebula-hero {
+  position: relative;
+}
+.bg-nebula-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle 600px at 20% 30%, rgb(var(--jp-shikon) / 0.20) 0%, transparent 70%),
+    radial-gradient(circle 500px at 80% 70%, rgb(var(--jp-aiiro) / 0.25) 0%, transparent 70%);
+}
+
+/* 星屑のオーバーレイ */
+.bg-starfield {
+  background-image: url("/textures/starfield.svg");
+  background-repeat: repeat;
+  background-size: 400px 400px;
+}
+
+/* 金箔の glow を見出しに乗せる */
+.text-glow-kinpaku {
+  color: rgb(var(--jp-shironeri));
+  text-shadow:
+    0 0 24px rgb(var(--jp-kinpaku) / 0.35),
+    0 0 48px rgb(var(--jp-kinpaku) / 0.18);
+}
+
+.text-glow-kinpaku-strong {
+  color: rgb(var(--jp-shironeri));
+  text-shadow:
+    0 0 16px rgb(var(--jp-kinpaku) / 0.5),
+    0 0 32px rgb(var(--jp-kinpaku) / 0.3),
+    0 0 64px rgb(var(--jp-shikon) / 0.25);
+}
+
+/* 紫微 (Polaris) 等が穏やかに瞬く */
+@keyframes constellation-twinkle {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+.constellation-twinkle {
+  animation: constellation-twinkle 5.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes star-soft-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+.star-soft-pulse {
+  animation: star-soft-pulse 7s ease-in-out infinite;
+}
+
+/* 装飾の区切り — 金線が左右に伸び、中央に小さな菱形 */
+.ornament-flourish {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 24rem;
+  margin: 0 auto;
+}
+.ornament-flourish::before,
+.ornament-flourish::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(var(--jp-kinpaku) / 0.45) 50%,
+    transparent 100%
+  );
+}
+.ornament-flourish-diamond {
+  width: 6px;
+  height: 6px;
+  background: rgb(var(--jp-kinpaku) / 0.7);
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px rgb(var(--jp-kinpaku) / 0.6);
 }
 
 /* 金箔散らし */
