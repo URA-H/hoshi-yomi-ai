@@ -17,16 +17,25 @@ export default function Home() {
           aria-hidden
           className="absolute inset-0 bg-starfield opacity-50 pointer-events-none"
         />
+        {/* 背景の巨大な魔法陣 backdrop (発光する円環、テキストの後ろに薄く敷く) */}
+        <div
+          aria-hidden
+          className="absolute top-32 left-1/2 -translate-x-1/2 w-[700px] h-[700px] pointer-events-none opacity-30"
+          style={{
+            background:
+              "radial-gradient(circle, rgb(91 50 112 / 0.18) 0%, transparent 55%)",
+          }}
+        />
 
         <div className="relative mx-auto max-w-5xl px-6 pt-(--spacing-ma-2xl) pb-(--spacing-ma-2xl)">
           <div className="flex flex-col items-center text-center gap-(--spacing-ma-lg)">
             <FortuneAIMark size="md" glyph="易" />
 
-            {/* 中央の星座エンブレム */}
-            <div className="my-(--spacing-ma-sm)">
+            {/* 中央の占星術盤エンブレム */}
+            <div className="my-(--spacing-ma-md)">
               <ConstellationEmblem
-                size={240}
-                className="drop-shadow-[0_0_40px_rgb(91_50_112/0.35)]"
+                size={320}
+                className="drop-shadow-[0_0_50px_rgb(91_50_112/0.45)]"
               />
             </div>
 
