@@ -48,8 +48,12 @@ export function FortuneAIMark({
           "inline-flex items-center justify-center select-none",
           // 臙脂色 — 朱印 / 落款の深紅。dark cosmic 背景に映える
           "text-(--color-enji)",
-          // 控えめな臙脂 glow + 紫紺の遠 glow
-          "[filter:drop-shadow(0_0_8px_rgb(182_48_62/0.5))_drop-shadow(0_0_22px_rgb(91_50_112/0.3))]",
+          // 多層 glow で「ぼやーっと光る」表情を作る:
+          //   layer 1: 朱明 (lighter pink) の極近 inner glow — 文字を内側から照らす
+          //   layer 2: 臙脂の中間 glow — 朱印らしい深紅の発光
+          //   layer 3: 臙脂の広い拡散 — ガラス越しのような滲み
+          //   layer 4: 紫紺の遠 atmospheric glow — 背景と溶け合う霧
+          "[filter:drop-shadow(0_0_3px_rgb(224_122_127/0.85))_drop-shadow(0_0_12px_rgb(224_122_127/0.55))_drop-shadow(0_0_28px_rgb(182_48_62/0.55))_drop-shadow(0_0_56px_rgb(91_50_112/0.35))]",
           className,
         )}
       >
