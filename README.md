@@ -9,6 +9,8 @@
 [![Tech: Tailwind v4](https://img.shields.io/badge/Tailwind-v4-06B6D4)](https://tailwindcss.com/)
 [![Tests: Vitest](https://img.shields.io/badge/Vitest-4.1-6E9F18)](https://vitest.dev/)
 
+🔗 **Live demo**: https://hoshi-yomi-ai.vercel.app （API キー未設定の mock モードで稼働。決定論的なサンプル所感が出ます）
+
 ---
 
 ## 目次
@@ -341,7 +343,9 @@ Vitest が `src/lib/fortune/*.test.ts`（占術ロジック）と `src/lib/ai/*.
 
 ## このリポジトリについて
 
-個人開発の作品として作ったものです。本番運用はしておらず、ローカル起動・コード閲覧・デモ動画とスクリーンショットで内容を確認できる構成になっています。
+個人開発の作品として作ったものです。Vercel に **mock モード** でデプロイしてあり、UI とフローを実機で触ることができます（決定論的なサンプル所感が返ります）。Live API モードに切り替えるには `ANTHROPIC_API_KEY` を Vercel の環境変数に追加してください。
+
+🔗 https://hoshi-yomi-ai.vercel.app
 
 ## ライセンス・注意事項
 
