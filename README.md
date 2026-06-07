@@ -51,10 +51,15 @@
 
 | 画面 | 説明 |
 |------|------|
-| ![Landing](./docs/screenshots/landing.png) | ランディング（夜空ビジュアルと篆書体のロゴ） |
-| ![Birth Form](./docs/screenshots/birth-form.png) | 生年月日・出生情報の入力フォーム |
-| ![Reading](./docs/screenshots/reading.png) | 三術の結果と AI コメンタリー |
-| ![Cross](./docs/screenshots/cross-summary.png) | 三術の合致 / 相違サマリー |
+| ![Landing](./docs/screenshots/index-desktop.png) | ランディング（夜空ビジュアルと篆書体のロゴ） |
+| ![Birth Form](./docs/screenshots/birth-desktop.png) | 生年月日・出生情報の入力フォーム |
+| ![Disclaimer](./docs/screenshots/legal--disclaimer-desktop.png) | 免責事項 |
+| ![Privacy](./docs/screenshots/legal--privacy-desktop.png) | プライバシーポリシー |
+| ![Terms](./docs/screenshots/legal--terms-desktop.png) | 利用規約 |
+
+モバイル版もすべて `-mobile.png` で同梱（`docs/screenshots/` 配下）。三術の結果画面は `/reading` で表示されますが、`/birth` フォーム経由のセッションが必要なため未取得。
+
+撮影は [routeshot](https://github.com/URA-H/routeshot) CLI で生成（設定は `routeshot.config.json`）。
 
 - **デモ動画（2〜3分）**: `docs/demo.mp4`（撮影予定）
 
